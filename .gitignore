@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Environments
+.env
+.venv/
+venv/
+ENV/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# VS Code / Cursor
+.vscode/
+
+# Logs
+*.log
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# dbt
+dbt_packages/
+target/
+dbt_modules/
+
+# Jupyter/Output Files
+*.checkpoint
+*.csv
+*.tsv
+*.xlsx
+*.parquet
+*.feather
+
+# Streamlit & FastAPI
+.streamlit/
+*.db

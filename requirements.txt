@@ -1,0 +1,41 @@
+# Core
+pandas
+numpy
+sqlalchemy
+python-dotenv
+requests
+httpx
+
+# Ingestion / APIs
+beautifulsoup4
+lxml
+fuzzywuzzy
+python-dateutil
+
+# Databases
+psycopg2-binary
+pymongo
+
+# Data Transformation
+dbt-core
+dbt-postgres
+
+# ML & Notebooks
+scikit-learn
+xgboost
+jupyter
+notebook
+textblob
+
+# Web App
+streamlit
+fastapi
+uvicorn
+
+# Automation
+prefect
+
+# Visualization
+matplotlib
+seaborn
+plotly
