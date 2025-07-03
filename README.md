@@ -1,146 +1,140 @@
+# 🛍️ Real-Time Retail Intelligence Platform
 
-# Real-Time Retail Intelligence Platform
-
-A full-stack data analytics solution designed to simulate real-time retail decision-making. This project integrates data engineering, analytics, and forecasting using Python, PostgreSQL, dbt, Airflow, and Tableau to deliver actionable insights across regions and SKUs.
-
----
-
-## 🧠 Project Summary
-
-- **Stack**: Python, PostgreSQL, dbt, Airflow, Tableau
-- **Goal**: Build a modular and extensible analytics platform that mimics real-time retail operations
-- **Key Capabilities**:
-  - Automate data ingestion, transformation, and loading
-  - Apply statistical and machine learning models for sales forecasting
-  - Visualize KPIs and performance trends via Tableau dashboards
+A full-stack, containerized analytics platform that simulates real-time retail decision-making. This project integrates modern data stack tools—**Python, PostgreSQL, dbt, Airflow, Docker, and Tableau**—to deliver an end-to-end solution for ingesting, transforming, modeling, and visualizing retail data across SKUs and regions.
 
 ---
 
-## 📁 Project Structure
+## 📦 Project Overview
+
+This platform enables:
+- Automated data ingestion and transformation using Airflow, Python, and dbt
+- Forecasting and performance modeling using custom ML pipelines
+- Dashboarding and KPI reporting using Tableau or embedded BI tools
+- Deployment using Docker and Docker Compose for reproducibility
+
+---
+
+## 🧱 Directory Structure
 
 ```
 
 real-time-retail-intelligence-platform/
 │
-├── dags/                      # Airflow DAGs for ETL orchestration
-├── dbt/                       # dbt models, seeds, and transformations
-├── data/                      # Raw and staged datasets
-├── notebooks/                 # Python notebooks for EDA and modeling
-├── sql/                       # Custom SQL transformations and schema setup
-├── tableau/                   # Packaged Tableau workbook
-├── requirements.txt           # Python dependencies
-└── README.md                  # Project documentation
+├── app/                      # API/dashboard interface (optional front-end or Flask app)
+├── automation/github\_workflows/  # CI/CD setup
+├── dashboards/              # Tableau or BI dashboards
+├── data/                    # Raw and staging datasets
+├── db\_admin/                # Database initialization, schema, seed scripts
+├── dbt\_project/             # dbt models and transformations
+├── etl/                     # Airflow DAGs for orchestrating ETL
+├── ingestion/               # Data ingestion pipelines (e.g., from APIs or flat files)
+├── ml\_models/               # Forecasting and ML models
+│
+├── Dockerfile               # Docker image for local build
+├── docker-compose.yml       # Container orchestration
+├── requirements.txt         # Python dependencies
+└── README.md                # You're here!
 
 ````
 
 ---
 
-## ⚙️ Technologies Used
+## 🔧 Tech Stack
 
-- **Python** – scripting, ETL logic, regression modeling
-- **PostgreSQL** – relational database for storage and querying
-- **dbt** – data modeling and transformation
-- **Apache Airflow** – workflow orchestration and automation
-- **Tableau** – dashboarding and visual analytics
+| Layer         | Tools                                     |
+|---------------|--------------------------------------------|
+| Orchestration | Apache Airflow, Docker Compose             |
+| Storage       | PostgreSQL                                 |
+| Transformation| dbt                                        |
+| Ingestion     | Python (CSV/API ingestion), Airflow        |
+| Modeling      | scikit-learn, pandas, custom ML in Python  |
+| BI            | Tableau / dashboards directory             |
+| Deployment    | Docker, GitHub Actions (CI/CD)             |
 
 ---
 
-## 📦 Installation
+## 🚀 Quickstart
 
-1. Clone the repository:
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/AntBap23/Real-Time-Retail-Intelligence-Platform.git
 cd Real-Time-Retail-Intelligence-Platform
 ````
 
-2. Set up the Python environment:
+### 2. Launch with Docker
 
 ```bash
-pip install -r requirements.txt
+docker-compose up --build
 ```
 
-3. Set up PostgreSQL database and load the schema:
-
-```bash
-psql -U your_username -d your_database -f sql/init_schema.sql
-```
-
-4. Initialize Airflow:
-
-```bash
-export AIRFLOW_HOME=~/airflow
-airflow db init
-airflow users create --username admin --firstname First --lastname Last --role Admin --email admin@example.com
-```
-
-5. Run the ETL DAG:
-
-```bash
-airflow scheduler
-airflow webserver --port 8080
-```
+> This will spin up PostgreSQL, Airflow, and the ETL pipeline containerized.
 
 ---
 
-## ▶️ How to Use
+## ⚙️ Components
 
-1. **ETL Pipelines**
-   Use Airflow and dbt to load and transform daily sales and inventory data into PostgreSQL.
+### 🛠 ETL Pipeline (`etl/`, `ingestion/`)
 
-2. **Forecasting**
-   Python notebooks implement regression models to forecast demand across product categories and regions.
+* Managed using Airflow DAGs
+* Extracts and cleans retail data
+* Loads raw → staging → warehouse tables in PostgreSQL
 
-3. **Visualization**
-   Use the Tableau workbook (`tableau/`) to interact with dynamic dashboards:
+### 🧮 Transformation (`dbt_project/`)
 
-   * Sales trends by region and SKU
-   * Forecasted vs. actual performance
-   * Inventory metrics
+* Models include fact tables, dimension tables, and forecast-ready schemas
+* dbt handles testing, documentation, and versioned SQL logic
 
----
+### 📈 Machine Learning (`ml_models/`)
 
-## 📊 Key Features
+* Forecasting models (e.g., linear regression, seasonal decomposition)
+* Evaluated with MAE/RMSE
+* Supports regional/SKU-level predictions
 
-* **Automated Pipelines**: End-to-end ingestion to reporting
-* **Modular Schema**: Star-schema design for scalability
-* **Forecasting Models**: Regression-based techniques with evaluation metrics (MAE, RMSE)
-* **Dashboards**: KPI monitoring across categories, geographies, and time periods
+### 📊 Dashboards (`dashboards/`)
 
----
+* Tableau dashboard visualizing:
 
-## 🔍 Insights & Use Cases
-
-* Monitor product-level sales trends in near real-time
-* Predict demand and align procurement decisions
-* Track regional performance for operations strategy
-* Identify underperforming SKUs with automated reporting
+  * Sales trends
+  * Forecast vs. actual
+  * Inventory KPIs
+  * Regional performance
 
 ---
 
-## 📈 Sample KPIs
+## 📊 KPIs Tracked
 
-| Metric               | Description                                 |
-| -------------------- | ------------------------------------------- |
-| Total Sales          | Total revenue by region or product          |
-| Forecast Accuracy    | MAE / RMSE between predicted vs. actual     |
-| Inventory Turns      | Inventory movement across reporting periods |
-| Regional Performance | Sales and margin breakdown by zone          |
-
----
-
-## 🛠️ Future Enhancements
-
-* Add support for real-time API data ingestion
-* Extend to multivariate time-series forecasting with Prophet or XGBoost
-* Deploy dashboards to Tableau Server or embed via Tableau Public
-* Dockerize for portable deployment
+| Metric               | Description                               |
+| -------------------- | ----------------------------------------- |
+| Sales Revenue        | Aggregated by product, region, and period |
+| Forecast Accuracy    | MAE, RMSE of sales predictions            |
+| Inventory Turnover   | Efficiency of stock movement              |
+| Regional Performance | Zone-level metrics for growth tracking    |
 
 ---
 
-## 📄 License
+## 📌 Use Cases
 
-This project is intended for academic and research purposes.
+* Simulate operational decisions in retail supply chains
+* Forecast demand and optimize inventory strategies
+* Identify high-performing SKUs or underperforming regions
+* Enable end-to-end testing of modern data stack infrastructure
+
+---
+
+## 🔮 Future Improvements
+
+* Real-time API data ingestion
+* Streamlit or Flask-based frontend interface
+* CI/CD pipeline with data quality checks via dbt tests
+* Time series forecasting using Prophet or XGBoost
+* Snowflake or BigQuery support
+
+---
+
+## 🛡 License
+
+This project is intended for academic, research, and portfolio use only.
 
 ---
 
@@ -149,7 +143,6 @@ This project is intended for academic and research purposes.
 **Anthony Baptiste**
 [LinkedIn](https://www.linkedin.com/in/anthony-baptiste00)
 [Portfolio](https://antbap23.github.io/portfolio)
-
 
 
 
