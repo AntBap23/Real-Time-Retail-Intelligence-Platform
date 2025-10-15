@@ -1,0 +1,175 @@
+# 🔐 Environment Variables Checklist
+# Copy this file to .env and fill in your actual values
+
+# ===========================================
+# DATABRICKS CONFIGURATION
+# ===========================================
+# Get these from your Databricks workspace settings
+DATABRICKS_WORKSPACE_URL=https://community.cloud.databricks.com
+DATABRICKS_TOKEN=your_databricks_access_token_here
+
+# ===========================================
+# HOW TO GET DATABRICKS CREDENTIALS
+# ===========================================
+
+# STEP 1: Create Databricks Community Edition Account
+# 1. Go to: https://community.cloud.databricks.com/
+# 2. Click "Get Started for Free"
+# 3. Sign up with your email address
+# 4. Verify your email
+# 5. Complete the registration process
+
+# STEP 2: Get Your Workspace URL
+# 1. After logging in, look at your browser URL
+# 2. It will look like: https://adb-1234567890123456.7.azuredatabricks.net/
+# 3. Copy this URL (without the trailing slash)
+# 4. This is your DATABRICKS_WORKSPACE_URL
+
+# STEP 3: Create Personal Access Token
+# 1. In your Databricks workspace, click on your username (top right)
+# 2. Select "User Settings" from the dropdown
+# 3. Click on "Access Tokens" tab
+# 4. Click "Generate New Token"
+# 5. Give it a name (e.g., "Retail Intelligence Project")
+# 6. Set expiration (recommend 90 days for free tier)
+# 7. Click "Generate"
+# 8. COPY THE TOKEN IMMEDIATELY (you won't see it again!)
+# 9. This is your DATABRICKS_TOKEN
+
+# STEP 4: Create SQL Warehouse (for BI Tools)
+# 1. In your workspace, click "SQL Warehouses" in the left sidebar
+# 2. Click "Create SQL Warehouse"
+# 3. Name it: "retail-intelligence-warehouse"
+# 4. Choose "2X-Small" for free tier
+# 5. Set "Auto Stop" to 10 minutes (to save credits)
+# 6. Click "Create"
+# 7. Note the "Connection Details" for BI tools:
+#    - Server hostname: your-workspace.cloud.databricks.com
+#    - HTTP path: /sql/1.0/warehouses/your-warehouse-id
+#    - Port: 443
+
+# STEP 5: Test Your Connection
+# 1. Go to "Data" in the left sidebar
+# 2. Click "Create Table" > "Upload File"
+# 3. Upload a small CSV file to test
+# 4. Create a simple query to verify everything works
+
+# IMPORTANT NOTES:
+# - Free tier has limitations (compute hours, storage)
+# - SQL Warehouse auto-stops after inactivity
+# - Personal access tokens expire (set calendar reminder)
+# - Keep your token secure (don't share or commit to git)
+
+# ===========================================
+# MONGODB ATLAS CONFIGURATION
+# ===========================================
+# Get these from your MongoDB Atlas cluster
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
+MONGODB_DB=retail_intelligence
+
+# MongoDB Atlas Setup Steps:
+# 1. Go to https://www.mongodb.com/atlas
+# 2. Create free account
+# 3. Create free cluster (M0 Sandbox)
+# 4. Create database user
+# 5. Get connection string from "Connect" button
+# 6. Replace <username> and <password> in connection string
+
+# ===========================================
+# DATA SOURCES (Optional - for external data)
+# ===========================================
+# If you're using external APIs or data sources
+API_KEY_RETAILROCKET=your_retailrocket_api_key_here
+API_KEY_AMAZON=your_amazon_api_key_here
+API_KEY_YELP=your_yelp_api_key_here
+
+# ===========================================
+# CLOUD STORAGE (Optional - for large datasets)
+# ===========================================
+# If you want to use cloud storage instead of DBFS
+AWS_ACCESS_KEY_ID=your_aws_access_key_here
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key_here
+AWS_S3_BUCKET=your_s3_bucket_name_here
+
+# Google Cloud Storage (alternative to AWS)
+GOOGLE_CLOUD_PROJECT_ID=your_gcp_project_id_here
+GOOGLE_CLOUD_CREDENTIALS_PATH=path/to/your/service-account-key.json
+
+# ===========================================
+# NOTIFICATION SERVICES (Optional)
+# ===========================================
+# For email notifications in workflows
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=your_email@gmail.com
+SMTP_PASSWORD=your_app_password_here
+
+# Slack webhook for notifications
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+
+# ===========================================
+# APPLICATION SETTINGS
+# ===========================================
+APP_ENV=development
+LOG_LEVEL=INFO
+DEBUG_MODE=true
+
+# ===========================================
+# SECURITY SETTINGS
+# ===========================================
+# Generate a random secret key for your application
+SECRET_KEY=your_random_secret_key_here
+
+# ===========================================
+# SETUP INSTRUCTIONS
+# ===========================================
+
+# 1. REQUIRED SETUP:
+#    - Create Databricks Community Edition account
+#    - Create MongoDB Atlas free cluster
+#    - Get access tokens and connection strings
+
+# 2. OPTIONAL SETUP:
+#    - Set up cloud storage (AWS S3 or Google Cloud)
+#    - Configure notification services
+#    - Set up external API keys
+
+# 3. SECURITY NOTES:
+#    - Never commit .env file to version control
+#    - Use strong passwords and rotate them regularly
+#    - Enable 2FA on all accounts
+#    - Use least privilege access
+
+# 4. TESTING YOUR SETUP:
+#    - Test Databricks connection
+#    - Test MongoDB Atlas connection
+#    - Verify all environment variables are loaded
+
+# ===========================================
+# QUICK START COMMANDS
+# ===========================================
+
+# 1. Copy this file to .env:
+#    cp ENVIRONMENT_VARIABLES_CHECKLIST.txt .env
+
+# 2. Edit .env with your actual values:
+#    nano .env
+
+# 3. Test your setup:
+#    python -c "import os; from dotenv import load_dotenv; load_dotenv(); print('MongoDB URI:', os.getenv('MONGODB_URI'))"
+
+# ===========================================
+# TROUBLESHOOTING
+# ===========================================
+
+# Common Issues:
+# - Invalid MongoDB connection string format
+# - Expired Databricks access token
+# - Missing environment variables
+# - Incorrect file paths
+
+# Solutions:
+# - Check MongoDB Atlas connection string format
+# - Regenerate Databricks access token
+# - Verify all required variables are set
+# - Use absolute paths for file references
