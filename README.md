@@ -1,16 +1,17 @@
 # 🛍️ Real-Time Retail Intelligence Platform
 
-A full-stack, containerized analytics platform that simulates real-time retail decision-making. This project integrates modern data stack tools—**Python, PostgreSQL, dbt, Airflow, Docker, and Tableau**—to deliver an end-to-end solution for ingesting, transforming, modeling, and visualizing retail data across SKUs and regions.
+A full-stack analytics platform that simulates real-time retail decision-making. This project integrates modern data stack tools—**Python, PostgreSQL, Airflow, Docker, and Tableau**—to deliver an end-to-end solution for ingesting, transforming, modeling, and visualizing retail data across SKUs and regions.
 
 ---
 
 ## 📦 Project Overview
 
 This platform enables:
-- Automated data ingestion and transformation using Airflow, Python, and dbt
+- Automated data ingestion and transformation using Python
+- Enterprise data warehouse with dimensional modeling (PostgreSQL)
 - Forecasting and performance modeling using custom ML pipelines
 - Dashboarding and KPI reporting using Tableau or embedded BI tools
-- Deployment using Docker and Docker Compose for reproducibility
+- Containerized deployment with Docker and PostgreSQL
 
 ---
 
@@ -20,18 +21,14 @@ This platform enables:
 
 real-time-retail-intelligence-platform/
 │
-├── app/                      # API/dashboard interface (optional front-end or Flask app)
-├── automation/github\_workflows/  # CI/CD setup
-├── dashboards/              # Tableau or BI dashboards
-├── data/                    # Raw and staging datasets
-├── db\_admin/                # Database initialization, schema, seed scripts
-├── dbt\_project/             # dbt models and transformations
-├── etl/                     # Airflow DAGs for orchestrating ETL
-├── ingestion/               # Data ingestion pipelines (e.g., from APIs or flat files)
+├── app/                      # Streamlit dashboard interface
+├── airflow/                  # Airflow DAGs for orchestrating ETL
+├── dashboards/              # Tableau, Power BI, and Streamlit dashboards
+├── data/                    # Raw and cleaned datasets
+├── data\_processing/         # Setup guides and documentation
 ├── ml\_models/               # Forecasting and ML models
+├── scripts/                 # Data processing Python scripts
 │
-├── Dockerfile               # Docker image for local build
-├── docker-compose.yml       # Container orchestration
 ├── requirements.txt         # Python dependencies
 └── README.md                # You're here!
 
@@ -44,11 +41,11 @@ real-time-retail-intelligence-platform/
 | Layer         | Tools                                     |
 |---------------|--------------------------------------------|
 | Orchestration | Apache Airflow, Docker Compose             |
-| Storage       | PostgreSQL                                 |
-| Transformation| dbt                                        |
-| Ingestion     | Python (CSV/API ingestion), Airflow        |
+| Storage       | PostgreSQL, MongoDB Atlas                 |
+| Transformation| SQL Scripts, Python                        |
+| Ingestion     | Python (CSV/API ingestion)                |
 | Modeling      | scikit-learn, pandas, custom ML in Python  |
-| BI            | Tableau / dashboards directory             |
+| BI            | Tableau / Power BI / Streamlit            |
 | Deployment    | Docker, GitHub Actions (CI/CD)             |
 
 ---
@@ -62,7 +59,19 @@ git clone https://github.com/AntBap23/Real-Time-Retail-Intelligence-Platform.git
 cd Real-Time-Retail-Intelligence-Platform
 ````
 
-### 2. Launch with Docker
+### 2. Set up PostgreSQL
+
+Install PostgreSQL (local or Docker):
+```bash
+# Docker option (recommended)
+docker run --name postgres-retail -e POSTGRES_PASSWORD=yourpassword -e POSTGRES_DB=bapbap23 -p 5432:5432 -d postgres
+
+# Or install locally from https://www.postgresql.org/download/
+```
+
+Configure environment variables (see `SETUP_CHECKLIST.md`)
+
+### 3. Launch with Docker (Optional)
 
 ```bash
 docker-compose up --build
@@ -74,16 +83,14 @@ docker-compose up --build
 
 ## ⚙️ Components
 
-### 🛠 ETL Pipeline (`etl/`, `ingestion/`)
+### 🛠 ETL Pipeline (`scripts/`)
 
-* Managed using Airflow DAGs
-* Extracts and cleans retail data
-* Loads raw → staging → warehouse tables in PostgreSQL
-
-### 🧮 Transformation (`dbt_project/`)
-
-* Models include fact tables, dimension tables, and forecast-ready schemas
-* dbt handles testing, documentation, and versioned SQL logic
+* Complete warehouse setup: `python scripts/setup_warehouse.py`
+* Loads cleaned data from `data/cleaned/` folder
+* Normalizes and standardizes data
+* Creates dimensional warehouse with star schema
+* Populates pre-aggregated marts for fast analytics
+* See `scripts/README.md` for details
 
 ### 📈 Machine Learning (`ml_models/`)
 
@@ -93,12 +100,13 @@ docker-compose up --build
 
 ### 📊 Dashboards (`dashboards/`)
 
-* Tableau dashboard visualizing:
+* Tableau and Power BI dashboards visualizing:
 
   * Sales trends
   * Forecast vs. actual
   * Inventory KPIs
   * Regional performance
+* Streamlit web app for interactive data exploration
 
 ---
 
@@ -125,10 +133,11 @@ docker-compose up --build
 ## 🔮 Future Improvements
 
 * Real-time API data ingestion
-* Streamlit or Flask-based frontend interface
-* CI/CD pipeline with data quality checks via dbt tests
+* Advanced ML models using MLflow
+* CI/CD pipeline with data quality checks
 * Time series forecasting using Prophet or XGBoost
-* Snowflake or BigQuery support
+* Real-time streaming with Apache Kafka
+* Advanced analytics and reporting
 
 ---
 
